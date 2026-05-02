@@ -1,16 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "sqlite:///./jobs.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./jobs.db"
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL,
+    connect_args={"check_same_thread": False}
+)
 
 SessionLocal = sessionmaker(bind=engine)
-
-# Test connection
-try:
-    conn = engine.connect()
-    print("✅ Connected to MySQL successfully!")
-    conn.close()
-except Exception as e:
-    print("❌ Error:", e)
